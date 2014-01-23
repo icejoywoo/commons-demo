@@ -26,12 +26,9 @@ public class TypeTokenDemo {
         }
 
         static <K, V> TypeToken<Map<K, V>> mapToken(TypeToken<K> keyToken, TypeToken<V> valueToken) {
-            return new TypeToken<Map<K, V>>() {
-            }
-                    .where(new TypeParameter<K>() {
-                    }, keyToken)
-                    .where(new TypeParameter<V>() {
-                    }, valueToken);
+            return new TypeToken<Map<K, V>>() {}
+                    .where(new TypeParameter<K>() {}, keyToken)
+                    .where(new TypeParameter<V>() {}, valueToken);
         }
     }
 

@@ -1,7 +1,6 @@
 package guava.caches;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import com.google.common.base.Objects;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,7 +32,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+        return Objects.toStringHelper(this)
+                .add("name", name)
+                .add("age", age)
+                .toString();
     }
 
     private String name;

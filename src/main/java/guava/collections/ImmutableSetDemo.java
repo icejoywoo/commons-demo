@@ -1,13 +1,25 @@
 package guava.collections;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.UnmodifiableIterator;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
  * Created by wujiabin on 14-1-27.
  */
 public class ImmutableSetDemo {
+
+    public final ImmutableSet<String> COLOR_NAMES = ImmutableSet.of(
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "blue",
+            "purple");
+
     static class Bar {
         String name;
     }
@@ -21,14 +33,27 @@ public class ImmutableSetDemo {
         }
     }
 
-    public static void main(String[] args) {
+    static void doSomething(Collection<String> collection) {
+        ImmutableList<String> defensiveCopy = ImmutableList.copyOf(collection);
+    }
 
-        final ImmutableSet<String> COLOR_NAMES = ImmutableSet.of(
-                "red",
-                "orange",
-                "yellow",
-                "green",
-                "blue",
-                "purple");
+    public static void main(String[] args) {
+        ImmutableSet<String> foobar = ImmutableSet.of("a", "b", "c");
+        System.out.println(foobar.toString());
+
+        ImmutableList<String> l = foobar.asList();
+        System.out.println(l);
+
+        doSomething(foobar);
+        // iterator
+        for (String e : foobar) {
+            System.out.println(e);
+        }
+
+        for (UnmodifiableIterator<String> iter = foobar.iterator();
+             iter.hasNext(); ) {
+            String e = iter.next();
+            System.out.println(e);
+        }
     }
 }

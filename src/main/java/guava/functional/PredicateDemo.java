@@ -14,7 +14,7 @@ public class PredicateDemo {
         Predicate p = new Predicate() {
 
             @Override
-            public boolean apply(@javax.annotation.Nullable java.lang.Object input) {
+            public boolean apply(java.lang.Object input) {
                 return false;
             }
         };

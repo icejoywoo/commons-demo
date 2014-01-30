@@ -33,5 +33,7 @@ public class CharMatcherDemo {
         System.out.println(CharMatcher.JAVA_LOWER_CASE.or(CharMatcher.is('_')).retainFrom("123ABCasdf_csdfSDF12adsf"));
         System.out.println(CharMatcher.inRange('a', 'h').and(CharMatcher.ANY).retainFrom("abcdefghijklmnopqrstuvwxyz"));
         System.out.println(CharMatcher.inRange('a', 'h').retainFrom("abcdefghijklmnopqrstuvwxyz"));
+        System.out.println(CharMatcher.inRange('a', 'h').collapseFrom("abcdefghijklmnopqrstuvwxyz", '_'));
+        System.out.println(CharMatcher.JAVA_LETTER.trimFrom("abcdefgh12312312312ijklmnopqrstuvwxyz"));
     }
 }

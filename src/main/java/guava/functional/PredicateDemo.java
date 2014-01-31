@@ -11,7 +11,7 @@ import java.util.List;
  * User: icejoywoo
  * Date: 14-1-30
  * Time: 18:59
- * To change this template use File | Settings | File Templates.
+ * Guava predicate demo.
  */
 public class PredicateDemo {
     public static void main(String[] args) {

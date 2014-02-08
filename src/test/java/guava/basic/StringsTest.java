@@ -7,7 +7,6 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,15 +53,25 @@ public class StringsTest {
     }
 
     @Test
-    public void testCharMatcher() {
+    public void testCharMatcherReplaceFrom() {
         String stringWithLineBreaks = "a\tb\n";
         assertThat(CharMatcher.BREAKING_WHITESPACE.replaceFrom(stringWithLineBreaks, " "), equalTo("a b "));
+    }
 
+    @Test
+    public void testCharMatcherCollapseFrom() {
         String tabsAndSpaces = "String    with    spaces     and     tabs";
         assertThat(CharMatcher.WHITESPACE.collapseFrom(tabsAndSpaces, ' '), is("String with spaces and tabs"));
 
         // trim
         String tabsAndSpaces1 = "   String    with    spaces     and     tabs";
         assertThat(CharMatcher.WHITESPACE.trimAndCollapseFrom(tabsAndSpaces, ' '), is("String with spaces and tabs"));
+    }
+
+    @Test
+    public void testCharMatcherRetainFrom() {
+        String lettersAndNumbers = "foo989yxb ar234";
+        assertThat(CharMatcher.JAVA_DIGIT.retainFrom(lettersAndNumbers), is("989234"));
+        assertThat(CharMatcher.JAVA_DIGIT.or(CharMatcher.WHITESPACE).retainFrom(lettersAndNumbers), is("989 234"));
     }
 }

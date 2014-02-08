@@ -3,9 +3,12 @@ package guava.basic;
 import com.google.common.base.Joiner;
 import org.testng.annotations.*;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.startsWith;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -13,6 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class JoinerTest {
 
+    // joiner is immutable on creation
     private Joiner joiner = null;
     private Joiner old = null;
 
@@ -48,6 +52,7 @@ public class JoinerTest {
         assertThat(joiner.skipNulls().join("a", "b", "c", null), equalTo("a,b,c"));
         assertThat(joiner.useForNull("no value").join("a", "b", "c", null), equalTo("a,b,c,no value"));
         assertThat(joiner, is(old));
+        assertThat(joiner, equalTo(old));
     }
 
     private Object createPerson(final String name) {
@@ -63,7 +68,31 @@ public class JoinerTest {
     public void testJoinerOnObjectsList() {
         StringBuilder builder = new StringBuilder();
         joiner.appendTo(builder, createPerson("a"), createPerson("b"), createPerson("c"));
-        assertThat(builder.toString(), equalTo("a,b,c"));
-        assertThat(builder.toString(), startsWith("a,b,c"));
+        // allOf
+        assertThat(builder.toString(), allOf(equalTo("a,b,c"), startsWith("a,b,c")));
+        // anyOf
+        assertThat(builder.toString(), anyOf(equalTo("a,b,c"), startsWith("a,b,c")));
+    }
+
+    @Test
+    public void testJoinerAppendToAppendable() throws IOException {
+        System.out.println(System.getProperty("java.io.tmpdir"));
+        try (FileWriter fileWriter = new FileWriter(System.getProperty("java.io.tmpdir") + "temp.txt")) {
+            joiner.appendTo(fileWriter, createPerson("a"), createPerson("b"), createPerson("c"));
+        }
+    }
+
+    @Test
+    public void testMapJoinerBasic() {
+        Joiner.MapJoiner mapJoiner = Joiner.on('#').withKeyValueSeparator("=").useForNull("NULL");
+        Map<String, String> map = new HashMap<String, String>() {{
+            put("Washington D.C", "Redskins");
+            put("New York City", "Giants");
+            put("Philadelphia", "Eagles");
+            put("Dallas", "Cowboys");
+            put(null, null);
+        }};
+        assertThat(mapJoiner.join(map),
+                is("NULL=NULL#New York City=Giants#Philadelphia=Eagles#Dallas=Cowboys#Washington D.C=Redskins"));
     }
 }

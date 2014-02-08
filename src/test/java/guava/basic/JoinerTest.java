@@ -10,6 +10,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.fail;
 
 /**
  * Created by wujiabin on 14-2-7.
@@ -82,6 +83,12 @@ public class JoinerTest {
         }
     }
 
+    @Test(expectedExceptions = {NullPointerException.class})
+    public void testJoinerNoNullHandler() {
+        Joiner.on("#").join("foo",null,"bar");
+        fail("Should not get here");
+    }
+
     @Test
     public void testMapJoinerBasic() {
         Joiner.MapJoiner mapJoiner = Joiner.on('#').withKeyValueSeparator("=").useForNull("NULL");
@@ -95,4 +102,5 @@ public class JoinerTest {
         assertThat(mapJoiner.join(map),
                 is("NULL=NULL#New York City=Giants#Philadelphia=Eagles#Dallas=Cowboys#Washington D.C=Redskins"));
     }
+
 }

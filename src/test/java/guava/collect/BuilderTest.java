@@ -1,5 +1,6 @@
 package guava.collect;
 
+import com.google.common.base.Function;
 import com.google.common.collect.*;
 import com.google.common.io.Files;
 import org.testng.annotations.Test;
@@ -55,5 +56,22 @@ public class BuilderTest {
             e.printStackTrace();
         }
         System.out.println(lines);
+    }
+
+    @Test
+    public void testMultimapSlice() {
+        List<Map<String, String>> listOfMaps = Lists.newArrayList();
+        listOfMaps.add(ImmutableMap.of("type", "blog", "id", "292", "author", "john"));
+        listOfMaps.add(ImmutableMap.of("type", "blog", "id", "293", "author", "sam"));
+        listOfMaps.add(ImmutableMap.of("type", "news", "id", "294", "author", "benjamin"));
+        listOfMaps.add(ImmutableMap.of("type", "news", "id", "295", "author", "james"));
+        Multimap<String, Map<String, String>> partitionedMap = Multimaps.index(
+                listOfMaps,
+                new Function<Map<String, String>, String>() {
+                    public String apply(final Map<String, String> from) {
+                        return from.get("type");
+                    }
+                });
+        System.out.println(partitionedMap);
     }
 }

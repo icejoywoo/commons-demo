@@ -3,6 +3,7 @@ package guava.basic;
 import com.google.common.base.Joiner;
 import org.testng.annotations.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -78,7 +79,7 @@ public class JoinerTest {
     @Test
     public void testJoinerAppendToAppendable() throws IOException {
         System.out.println(System.getProperty("java.io.tmpdir"));
-        try (FileWriter fileWriter = new FileWriter(System.getProperty("java.io.tmpdir") + "temp.txt")) {
+        try (FileWriter fileWriter = new FileWriter(new File(System.getProperty("java.io.tmpdir"), "temp.txt"))) {
             joiner.appendTo(fileWriter, createPerson("a"), createPerson("b"), createPerson("c"));
         }
     }

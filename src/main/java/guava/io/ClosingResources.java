@@ -14,7 +14,7 @@ import java.io.*;
 public class ClosingResources {
     public static void main(String[] args) throws IOException {
         // jdk1.7 try-with-resources
-        try (BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/test.ftl"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(ClosingResources.class.getResource("/test.ftl").getFile()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
@@ -23,7 +23,7 @@ public class ClosingResources {
         // guava closer
         Closer closer = Closer.create();
         try {
-            InputStream in = closer.register(new FileInputStream("./src/main/resources/test.ftl"));
+            InputStream in = closer.register(new FileInputStream(ClosingResources.class.getResource("/test.ftl").getFile()));
             OutputStream out = closer.register(new FileOutputStream("./src/main/resources/test.output"));
             // do stuff with in and out
         } catch (Throwable e) { // must catch Throwable

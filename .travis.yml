@@ -1,3 +1,11 @@
 language: java
-before_script: "mvn compile"
-script: "mvn test"
+
+before_script:
+  - mvn compile
+
+script:
+  - mvn test
+
+jdk:
+  - openjdk7
+  - oraclejdk7

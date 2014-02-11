@@ -4,11 +4,20 @@
 
     <groupId>commons-demo</groupId>
     <artifactId>commons-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>commons-demo</name>
     <url>http://maven.apache.org</url>
+
+    <repositories>
+        <repository>
+            <id>ibiblio</id>
+            <name>Ibiblio Maven Repository</name>
+            <url>http://mirrors.ibiblio.org/maven2</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,9 +25,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.3.1</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

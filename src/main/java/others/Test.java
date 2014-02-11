@@ -41,5 +41,7 @@ public class Test {
         Test hf = new Test();
         hf.init();
         hf.process();
+
+        System.out.println(System.getProperty("user.dir"));
     }
 }

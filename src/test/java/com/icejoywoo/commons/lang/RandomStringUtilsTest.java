@@ -10,6 +10,8 @@ public class RandomStringUtilsTest {
         System.out.println(RandomStringUtils.random(10));
         System.out.println(RandomStringUtils.randomAlphabetic(10));
         System.out.println(RandomStringUtils.randomNumeric(10));
+        System.out.println(RandomStringUtils.random(10, true, false));
+        System.out.println(RandomStringUtils.random(10, true, true));
     }
 
 }

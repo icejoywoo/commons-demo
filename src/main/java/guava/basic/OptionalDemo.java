@@ -29,7 +29,7 @@ public class OptionalDemo {
         //
         System.out.println(Objects.firstNonNull(null, "abc"));
         try {
-            System.out.println(Objects.firstNonNull(null, null));
+            System.out.println(Objects.<Object>firstNonNull(null, null));
         } catch (NullPointerException e) {
         }
         System.out.println(Strings.emptyToNull(""));

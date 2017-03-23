@@ -51,7 +51,7 @@ public class BuilderTest {
         File file = new File(this.getClass().getResource("/test.txt").getFile());
         List<String> lines = null;
         try {
-            lines = Files.readLines(file, Charset.forName("GB18030"));
+            lines = Files.readLines(file, Charset.forName("UTF8"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -10,17 +10,13 @@
     <name>commons-demo</name>
     <url>http://maven.apache.org</url>
 
-    <repositories>
-        <repository>
-            <id>ibiblio</id>
-            <name>Ibiblio Maven Repository</name>
-            <url>http://mirrors.ibiblio.org/maven2</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <scala.major.version>2.12</scala.major.version>
+        <scala.version>2.12.8</scala.version>
+
+        <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -104,6 +100,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -116,6 +118,35 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile-scala</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile-scala</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaCompatVersion>${scala.major.version}</scalaCompatVersion>
+                    <checkMultipleScalaVersions>true</checkMultipleScalaVersions>
+                    <scalaVersion>${scala.version}</scalaVersion>
                 </configuration>
             </plugin>
         </plugins>

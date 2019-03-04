@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -93,7 +94,7 @@ public class JoinerTest {
     @Test
     public void testMapJoinerBasic() {
         Joiner.MapJoiner mapJoiner = Joiner.on('#').withKeyValueSeparator("=").useForNull("NULL");
-        Map<String, String> map = new HashMap<String, String>() {{
+        Map<String, String> map = new LinkedHashMap<String, String>() {{
             put("Washington D.C", "Redskins");
             put("New York City", "Giants");
             put("Philadelphia", "Eagles");
@@ -101,7 +102,7 @@ public class JoinerTest {
             put(null, null);
         }};
         assertThat(mapJoiner.join(map),
-                is("NULL=NULL#New York City=Giants#Philadelphia=Eagles#Dallas=Cowboys#Washington D.C=Redskins"));
+                is("Washington D.C=Redskins#New York City=Giants#Philadelphia=Eagles#Dallas=Cowboys#NULL=NULL"));
     }
 
 }

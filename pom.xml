@@ -106,6 +106,13 @@
             <version>${scala.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.12</artifactId>
+            <version>3.0.7</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
